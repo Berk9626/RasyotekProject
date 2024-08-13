@@ -24,16 +24,17 @@ namespace Rasyotek.WEBUI.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            List<SelectListItem> selectedListItems = (from c in _universityService.GetUniversitiesAsync().ToString()
-                                                      select new SelectListItem
-                                                      {
+            //List<SelectListItem> selectedListItems = (from c in _universityService.GetUniversitiesAsync().ToString()
+            //                                          select new SelectListItem
+            //                                          {
                                                           
-                                                        Text = c.ToString(),
+            //                                            Text = c.ToString(),
 
-                                                      }).ToList();
+            //                                          }).ToList();
           
-            ViewBag.dgr1 = selectedListItems;
-            return View(selectedListItems);
+            //ViewBag.dgr1 = selectedListItems;
+            //return View(selectedListItems);
+            return View();
         }
 
         [HttpPost]

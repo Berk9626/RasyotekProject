@@ -41,6 +41,7 @@
                 url: 'http://universities.hipolabs.com/search?country=Turkey',
                 type: 'GET',
                 success: function (data) {
+                    console.log(data); // JSON verisini konsola yazdır
                     $.each(data, function (i, item) {
                         $('#universiteSelect').append($('<option>', {
                             value: item.name,

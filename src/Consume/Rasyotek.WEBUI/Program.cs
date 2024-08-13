@@ -9,6 +9,21 @@ using Rasyotek.WEBUI.ApiCallsServices.Abstract;
 using Rasyotek.WEBUI.ApiCallsServices.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        builder =>
+        {
+            builder.WithOrigins("http://universities.hipolabs.com/search?country=Turkey") // Ýzin verilen kaynaklar
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
+
+
+
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PersonelContext>();
 
@@ -16,15 +31,17 @@ builder.Services.AddDbContext<PersonelContext>();
 builder.Services.AddHttpClient<IUniversityService, UniversityService>();
 builder.Services.AddScoped<IRepository<Personel>, Repository<Personel>>();
 builder.Services.AddScoped<IPersonelService, PersonelService>();
-builder.Services.AddAutoMapper(typeof(Program)); 
+builder.Services.AddAutoMapper(typeof(Program));
+
+
 
 // Add services to the container.
 
 
 
 
-    
-    
+
+
 var app = builder.Build();
 
 
@@ -47,6 +64,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseCors("AllowSpecificOrigins"); // CORS politikasýný kullanma
 
 app.UseAuthorization();
 
