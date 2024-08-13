@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Rasyotek.Business.Abstract;
 using Rasyotek.Business.DTOs;
 using Rasyotek.Entity;
@@ -23,13 +24,16 @@ namespace Rasyotek.WEBUI.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            //apiden çekilen üniler 
-            var model = new CreatePersonelDto
-            {
-                Mezuniyet = await _universityService.GetUniversitiesAsync()
-            };
+            List<SelectListItem> selectedListItems = (from c in _universityService.GetUniversitiesAsync().ToString()
+                                                      select new SelectListItem
+                                                      {
+                                                          
+                                                        Text = c.ToString(),
 
-            return View(model);
+                                                      }).ToList();
+          
+            ViewBag.dgr1 = selectedListItems;
+            return View(selectedListItems);
         }
 
         [HttpPost]
@@ -38,52 +42,60 @@ namespace Rasyotek.WEBUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var personelDto = new CreatePersonelDto
-                {
-                    Ad = model.Ad,
-                    Soyad = model.Soyad,
-                    Cinsiyet = model.Cinsiyet,
-                    Zimmet = model.Zimmet,
-                    Mezuniyet = model.Mezuniyet
-                };
-
-                _personelService.Add(personelDto);
+                _personelService.Add(model);
                 return RedirectToAction("Index");
             }
-
-            model.Mezuniyet = await _universityService.GetUniversitiesAsync(); // List<string> döndürmeli
+            //model.Mezuniyets = await _universityService.GetUniversitiesAsync();
             return View(model);
-
         }
 
 
 
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var personel =  _personelService.GetById(id);
+            var personel = _personelService.GetById(id);
             if (personel == null)
             {
                 return NotFound();
             }
-            return View(personel);
+
+            // Get the list of universities
+            var universities = await _universityService.GetUniversitiesAsync();
+
+            var model = new UpdatePersonelDto
+            {
+                Id = personel.Id,
+                Ad = personel.Ad,
+                Soyad = personel.Soyad,
+                Cinsiyet = personel.Cinsiyet,
+                Zimmet = personel.Zimmet,
+                Mezuniyet = personel.Mezuniyet,
+                
+                
+            };
+
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, UpdatePersonelDto personeldto)
+        public async Task<IActionResult> Edit(int id, UpdatePersonelDto model)
         {
-            if (id != personeldto.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                 _personelService.Update(personeldto);
+                _personelService.Update(model);
                 return RedirectToAction(nameof(Index));
             }
-            return View(personeldto);
+
+            // Re-populate the universities list if the model state is invalid
+            
+            return View(model);
         }
 
         public IActionResult Delete(int id)

@@ -12,7 +12,7 @@ namespace Rasyotek.WEBUI.ApiCallsServices.Concrete
         {
             _httpClient = httpClient;
         }
-        public async Task < List<string>> GetUniversitiesAsync()
+        public async Task <List<string>> GetUniversitiesAsync()
         {
             var response =await  _httpClient.GetStringAsync("http://universities.hipolabs.com/search?country=Turkey");
             var univercities = JsonConvert.DeserializeObject<List<University>>(response);

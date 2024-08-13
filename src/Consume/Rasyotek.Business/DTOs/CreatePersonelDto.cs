@@ -8,11 +8,11 @@ namespace Rasyotek.Business.DTOs
 {
     public class CreatePersonelDto
     {
-       
+
         public string Ad { get; set; }
         public string Soyad { get; set; }
         public string Cinsiyet { get; set; }  // RadioButton için
         public bool Zimmet { get; set; }  // Checkbox için
-        public List<string> Mezuniyet { get; set; }  // Okul alanı
+        public string Mezuniyet { get; set; }  // seçilen okul
     }
 }
