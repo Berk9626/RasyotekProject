@@ -31,7 +31,7 @@ namespace Rasyotek.DataAccess.Repository
 
         public List<T> GetList()
         {
-            return _context.Set<T>().ToList();
+            return _context.Set<T>().ToList(); 
         }
 
         public T GetById(int id)
