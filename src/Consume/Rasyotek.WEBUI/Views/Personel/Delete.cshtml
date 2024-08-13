@@ -1,0 +1,14 @@
+﻿@model Rasyotek.Business.DTOs.ResultPersonelDto
+
+<h2>Personeli Sil</h2>
+
+<div>
+    <h3>Bu personeli silmek istediğinize emin misiniz?</h3>
+    <p>@Model.Ad @Model.Soyad</p>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
