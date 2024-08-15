@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Rasyotek.Business.Abstract;
 using Rasyotek.Business.DTOs;
+using Rasyotek.Business.ValidationRules;
 using Rasyotek.Entity;
 using Rasyotek.WEBUI.ApiCallsServices.Abstract;
 
@@ -37,6 +39,8 @@ namespace Rasyotek.WEBUI.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreatePersonelDto model)
         {
+            //PersonelValidator validationRules = new PersonelValidator();
+            //ValidationResult result = validationRules.Validate(model);
             if (ModelState.IsValid)
             {
                 _personelService.Add(model);

@@ -1,7 +1,9 @@
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Rasyotek.Business.Abstract;
 using Rasyotek.Business.Concrete;
+using Rasyotek.Business.ValidationRules;
 using Rasyotek.DataAccess.Concrete;
 using Rasyotek.DataAccess.Repository;
 using Rasyotek.Entity;
@@ -21,7 +23,9 @@ builder.Services.AddCors(options =>
     });
 });
 
-
+builder.Services.AddFluentValidation();
+//builder.Services.AddControllers()
+//    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<PersonelValidator>());
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PersonelContext>();
