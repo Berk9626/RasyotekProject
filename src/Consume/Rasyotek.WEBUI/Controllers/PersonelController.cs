@@ -20,21 +20,17 @@ namespace Rasyotek.WEBUI.Controllers
         public IActionResult Index()
         {
             var personels = _personelService.GetAll();
+
             return View(personels);
         }
         public async Task<IActionResult> Create()
         {
-            //List<SelectListItem> selectedListItems = (from c in _universityService.GetUniversitiesAsync().ToString()
-            //                                          select new SelectListItem
-            //                                          {
-                                                          
-            //                                            Text = c.ToString(),
 
-            //                                          }).ToList();
-          
-            //ViewBag.dgr1 = selectedListItems;
-            //return View(selectedListItems);
+            
+
+           
             return View();
+            
         }
 
         [HttpPost]
