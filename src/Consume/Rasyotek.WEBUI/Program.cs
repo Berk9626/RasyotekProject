@@ -30,7 +30,7 @@ builder.Services.AddDbContext<PersonelContext>();
 builder.Services.AddHttpClient<IUniversityService, UniversityService>();
 builder.Services.AddScoped<IRepository<Personel>, Repository<Personel>>();
 builder.Services.AddScoped<IPersonelService, PersonelService>();
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(Rasyotek.Business.Map.AutoMapper));
 
 
 

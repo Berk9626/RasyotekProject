@@ -23,7 +23,7 @@ namespace Rasyotek.WEBUI.Controllers
 
             return View(personels);
         }
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
 
             
@@ -35,14 +35,14 @@ namespace Rasyotek.WEBUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreatePersonelDto model)
+        public IActionResult Create(CreatePersonelDto model)
         {
             if (ModelState.IsValid)
             {
                 _personelService.Add(model);
                 return RedirectToAction("Index");
             }
-            //model.Mezuniyets = await _universityService.GetUniversitiesAsync();
+            
             return View(model);
         }
 
