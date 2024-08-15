@@ -102,19 +102,9 @@ namespace Rasyotek.WEBUI.Controllers
             {
                 return NotFound();
             }
-            return View(personel);
+            _personelService.Delete(id);
+            return RedirectToAction("Index");
         }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-             _personelService.Delete(id);
-            return RedirectToAction(nameof(Index));
-        }
-
-
-
 
     }
 }
